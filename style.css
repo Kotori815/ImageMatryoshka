@@ -1,0 +1,14 @@
+canvas {
+    margin: 2px;
+    border: 2px solid lightgray;
+    border-radius: 2pt;
+}
+
+.defaultCanvas {
+    width: 400px;
+    height: 200px;
+}
+
+.box {
+    display: flex;
+}

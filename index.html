@@ -1,0 +1,35 @@
+<html>
+    <title>图片套娃生成器</title>
+    <script type="text/javascript" src="main.js"></script>
+    <script src="http://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
+    <link type="text/css" href="style.css" rel="StyleSheet">
+</html>
+
+<body>
+    <h1>图片套娃生成器</h1>
+
+    <p id="intro">这里是说明</p>
+
+    <div class="box">
+        <div class="picBox">
+            <canvas id=background class="defaultCanvas"></canvas>
+            <br><input type="file" id="bgPic" accept="image/png" style="margin: 2px;" onchange="changeCanvas(this)"/>
+        </div>
+        
+        <div class="picBox">
+            <canvas id=hide class="defaultCanvas"></canvas>
+            <br><input type="file" id="hdPic" value="image/png" style="margin: 2px;" />
+        </div>
+    </div>
+
+    <p>
+        <input type="button" id="generate" value="生成" />
+        <input type="button" id="clear" value="清除" />
+    </p>
+
+    <p>
+        <canvas id="result" class="defaultCanvas"></canvas>
+        <br><input type="button" id="save" value="保存" style="margin: 2px;" />
+    </p>
+
+</body>
