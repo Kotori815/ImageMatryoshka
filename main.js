@@ -4,7 +4,6 @@ var bgPic;
 var hdPic;
 var resultPic;
 
-
 function changeCanvas(fileInput) {
     var can = document.getElementById("background")
     var fileId = fileInput.getAttribute("id");
