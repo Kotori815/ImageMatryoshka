@@ -1,67 +1,47 @@
-var MINSIZE = 70;
-var MAXSIZE = 200;
-var bgPic;
-var hdPic;
+var MINSIZE = 50;
+var MAXSIZE = 2000;
+var bgPic = new Image();
+var hdPic = new Image();
 var resultPic;
 
-function changeCanvas(fileInput) {
-    var can = document.getElementById("background")
-    var fileId = fileInput.getAttribute("id");
-    var image = readImage(fileInput);
-    
-    if (fileId == "bgPic") {
-        bgPic = fileId;
-    }
-    else if (fileId == "hdPic") {
-        hdPic = image;
-    }
-    
-    if (!testImageSize(bgPic)) {
-        alert("图片过大或过小，请更换图片");
-    }
+function upload(fileInput, target) {
+    var can = fileInput.parentNode.firstChild.nextSibling;
+    // var can = document.getElementById("background");
+    target.src = fileInput.files[0].name;
 
-    var bgPic_resized = resizeImage(bgPic);
-
-    drawTo(bgPic_resized, can);
+    target.onload = function(){
+        var width = this.width;
+        var height = this.height
+        if (checkSize(width, height, MINSIZE, MAXSIZE)) {
+            console.log(width, height);
+            can.width = width;
+            can.height = height;
+            var ctx = can.getContext("2d");
+            ctx.drawImage(this, 0, 0);
+        }
+    }
 }
 
-function readImage(file){
-    // code here
-    return ;
-}
-
-function testImageSize(image) {
-    var width;
-    var height;
-    // code to get size
-    if (width < MINSIZE || width > MAXSIZE
-        || height < MINSIZE || height > MAXSIZE) {
+function checkSize(width, height, min, max) {
+    if (width < min || width > max
+        || height < min || height > max) {
         return false;
     }
     return true;
 }
 
-function resizeImage(image) {
-    // if size okay
-    if (1) {
-        return image;
-    }
+function makeHTMLImage(source) {
+    var img = new Image();
+    img.onload = function() {};
+    img.src = source;
+    // img.
 
-    var resized;
-    // code
-    return resized;
-}
-
-function mergeImage() {
-    if (!checkSize(bgPic, hdPic)) {
-        alert("图2过大")
-    }
-}
-
-function checkImage() {
-    return false;
 }
 
 function save() {
-    
+
+}
+
+function clear() {
+
 }
