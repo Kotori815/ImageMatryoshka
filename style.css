@@ -14,11 +14,6 @@ output {
     font-size: 15pt;
 }
 
-.defaultCanvas {
-    width: 400px;
-    height: 200px;
-}
-
 .box {
     display: flex;
 }
