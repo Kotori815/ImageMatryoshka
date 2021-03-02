@@ -1,3 +1,7 @@
+body {
+    background-color: antiquewhite;
+}
+
 canvas {
     margin: 2px;
     border: 2px solid lightgray;
