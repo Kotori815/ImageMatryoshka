@@ -13,11 +13,13 @@
         <div class="picBox">
             <canvas id=background width="400" height="200"></canvas>
             <br><input type="file" id="bgPic" accept="image/png" style="margin: 2px;" onchange="upload(this, bgPic)" />
+            <br><output id="sizeBg">Size:</output>
         </div>
         
         <div class="picBox">
             <canvas id=hide width="400" height="200"></canvas>
             <br><input type="file" id="hdPic" value="image/png" style="margin: 2px;" onchange="upload(this, hdPic)" />
+            <br><output id="sizeHd">Size:</output>
         </div>
     </div>
 
@@ -27,7 +29,7 @@
     </p>
 
     <p>
-        <canvas id="result" class="defaultCanvas"></canvas>
+        <canvas id="result" width="400" height="200"></canvas>
         <br><input type="button" id="save" value="保存" onclick="save()" style="margin: 2px;" />
     </p>
 
