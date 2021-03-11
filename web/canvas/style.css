@@ -1,0 +1,13 @@
+canvas {
+    margin: 10px;
+    border: 2px solid lightgray;
+}
+
+input {
+    font-size: 16pt;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+div {
+    font: 14pt Arial;
+}

@@ -1,0 +1,37 @@
+<html>
+    <title>Interactive Canvas</title>
+    <link rel="StyleSheet" href="style.css" type="text/css" />
+
+</html>
+
+<body>
+    <h1 id="hd">Paint Your Picture</h1>
+
+    Set width <input type="text" id="widthIn" value="400" onchange="setWidth(this.value)">
+    Set height <input type="text" id="HeightIn" value="300" onchange="setHeight(this.value)">
+
+    <br>
+    <canvas id="cvs" width="400" height="300" onmousedown="startPaint()" onmousemove="doPaint(event.offsetX, event.offsetY)" onmouseup="endPaint()" ></canvas>
+
+    <br>
+
+    <p>
+    Color 
+    <input type="color" id="cl" value="#0000ff" onchange="changeColor(this.value)" />
+    <output id="colorOutput">#0000ff</output>
+    </p>
+    <p>
+    Bruch size
+    <input type="range" id="sizeinput" min="0" max="30" value="5" onchange="changeRadius(this.value)" />
+    <output id="sizeOutput">5</output>
+
+    </p>
+
+    <br>
+    <input type="button" id="bt" value="Clear All" onclick="clearCanvas()" />
+
+    <div id="status">false</div>
+
+</body>
+
+<script type="text/javascript" src="script.js"></script>

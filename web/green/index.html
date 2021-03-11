@@ -1,0 +1,29 @@
+<html>
+    <title>image filter web</title>
+    <link rel="StyleSheet" type="text/css" href="style.css" />
+    <script src="http://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
+</html>
+
+<body>
+    <h1>Image Filter</h1>
+    <p>Upload your image and try different filters!</p>
+    <canvas id="cvs"></canvas>
+    
+    <h2>Load Image</h2>
+    <p> <input type="file" id="fin" accept="img/*" onchange="upload()"/></p>
+    <p id="sizeP">Size: </p>
+    
+    <h2>Choose Filter</h2>
+    <p>
+      <input type="button" id="greyBt" value="GrayScale" onclick="grayScale()" />
+      <input type="button" id="redBt" value="Red Filter" onclick="hueRed()" />
+      <input type="button" id="shutterBt" value="Shutters" onclick="shutter()" />
+      <input type="button" id="rainbowBt" value="Blur" onclick="turnBlur()" />
+    </p>
+    <p>
+      <input type="button" id="resetBt" value="Reset Image" onclick="reset()" />
+    </p>
+</body>
+
+<script type="text/javascript" src="script.js"></script>
+

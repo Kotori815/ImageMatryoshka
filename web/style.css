@@ -1,0 +1,19 @@
+body {
+    background-color: antiquewhite;
+}
+
+canvas {
+    margin: 2px;
+    border: 2px solid lightgray;
+    border-radius: 2pt;
+}
+
+output {
+    padding: 5px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 15pt;
+}
+
+.box {
+    display: flex;
+}
