@@ -2,15 +2,15 @@ import os
 
 from flask import Flask, request, jsonify
 from flask_cors import *
-import base64, re
+import base64, re, os, uuid
+
+from util import *
 
 app = Flask(__name__)
 CORS(app, supports_cresentials=True)
 
-backImg = None
-hideImg = None
+backImg, hideImg = None, None
 
-# a simple page that says hello
 @app.route('/')
 def hello():
     return '<h1>Void Page!</h1><p>There is a void in your heart and I put it there</p>'
@@ -22,37 +22,28 @@ def upload():
             return jsonify({'code': -1, 'message': 'request is not json'})
         
         param = request.json
-        img = readData(param.get('img'))
+        img = readBase64Data(param.get('img'))
+        print(img.shape)
 
         typeImg = param.get('type')
-        if typeImg == "back":
+        if typeImg == 'back':
             backImg = img
-            print("read back")
-        elif typeImg == "hide":
+            print('read back')
+        elif typeImg == 'hide':
             hideImg = img
-            print("read hide")
+            print('read hide')
         else:
-            Exception("这图哪里来的？？？")
+            Exception('undefined type'.format(typeImg))
 
-        return jsonify({'code': 0, 'message': 'upload successfully'})
+        return jsonify({'code': 0, 'message': '{}-image upload successfully'.format(typeImg)})
         
     except Exception as e:
         print(e.args)
-        return jsonify({'code': -1, 'error_message':e})
-    
-def readData(src):
-    result = re.search('data:image/(?P<ext>.*?);base64,(?P<data>.*)', src, re.DOTALL)
+        return jsonify({'code': -1, 'message': e.args[0]})
 
-    if not result:
-        raise Exception('上传失败')
-    if result.groupdict().get('ext') != 'png':
-        raise Exception('图片应为png格式！')
-    
-    data = result.groupdict().get('data')
-    img = base64.urlsafe_b64decode(data)
-
-    return img
+@app.route('/merge')
+def merge():
+    if not backImg or not hideImg:
+        return jsonify({'code': -1, 'message': 'Either image not uploaded'})
     
 
-
-    
