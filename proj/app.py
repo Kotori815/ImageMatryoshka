@@ -22,14 +22,15 @@ def upload():
         
         param = request.json
 
-        imgBack = util.readBase64Data(param.get('back'))
-        imgHide = util.readBase64Data(param.get('hide'))
+        imgBack = util.dataUrl2NumpyArray(param.get('back'))
+        imgHide = util.dataUrl2NumpyArray(param.get('hide'))
         
         imgRes = util.mergeImage(imgBack, imgHide)
+        dataUrlRes = util.numpyArray2DataUrl(imgRes)
 
         return jsonify({'code': 0, 
                         'message': 'images are merged successfully', 
-                        'result': imgRes})
+                        'result': dataUrlRes})
         
     except Exception as e:
         print(e.args)

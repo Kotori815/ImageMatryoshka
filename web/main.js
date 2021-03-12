@@ -64,8 +64,6 @@ function generate() {
 
 // submit img dataurl to back end, and return the response
 function submitImg(jsonForm, backUrl) {
-    var canvas = document.getElementById("result");
-    var output = document.getElementById("sizeRes");
     $.ajax({
         type: "POST",
         dataType: "json",
@@ -73,8 +71,8 @@ function submitImg(jsonForm, backUrl) {
         contentType: "application/json",
         data: JSON.stringify(jsonForm),
         success: function(result) {
-            console.log(result.result);
-            $("#ImagePic").attr("src",result.result);
+            console.log(result.message);
+            document.getElementById("result").src = result.result
         }
     });    
 }
