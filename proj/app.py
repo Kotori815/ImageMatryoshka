@@ -4,12 +4,10 @@ from flask import Flask, request, jsonify
 from flask_cors import *
 import base64, re, os, uuid
 
-from util import *
+import util
 
 app = Flask(__name__)
 CORS(app, supports_cresentials=True)
-
-backImg, hideImg = None, None
 
 @app.route('/')
 def hello():
@@ -19,31 +17,22 @@ def hello():
 def upload():
     try:
         if not request.json:
+            print("aa")
             return jsonify({'code': -1, 'message': 'request is not json'})
         
         param = request.json
-        img = readBase64Data(param.get('img'))
-        print(img.shape)
 
-        typeImg = param.get('type')
-        if typeImg == 'back':
-            backImg = img
-            print('read back')
-        elif typeImg == 'hide':
-            hideImg = img
-            print('read hide')
-        else:
-            Exception('undefined type'.format(typeImg))
+        imgBack = util.readBase64Data(param.get('back'))
+        imgHide = util.readBase64Data(param.get('hide'))
+        
+        imgRes = util.mergeImage(imgBack, imgHide)
 
-        return jsonify({'code': 0, 'message': '{}-image upload successfully'.format(typeImg)})
+        return jsonify({'code': 0, 
+                        'message': 'images are merged successfully', 
+                        'result': imgRes})
         
     except Exception as e:
         print(e.args)
-        return jsonify({'code': -1, 'message': e.args[0]})
-
-@app.route('/merge')
-def merge():
-    if not backImg or not hideImg:
-        return jsonify({'code': -1, 'message': 'Either image not uploaded'})
+        return jsonify({'code': -1, 'message': e.args})
     
 

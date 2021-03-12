@@ -1,113 +1,85 @@
 var MINSIZE = 50;
 var MAXSIZE = 2000;
-var bgPic = new FileReader()
-var hdPic = new FileReader();
 
-var url = "http://127.0.0.1:5000/upload"
+var url = "http://127.0.0.1:5000/upload";
 
 function upload(fileInput, target) {
     var can = fileInput.parentNode.firstChild.nextSibling;
     var out = fileInput.parentNode.lastChild.previousSibling;
-    target.readAsDataURL(fileInput.files[0]);
-    target.onload = function() {
-        var type = can.id == "background" ? "back" : "hide"
-        drawCanvas(target.result, can, out);
-        submitImg(target, url, type)
-    }
-}
+    var fr = new FileReader();
+    fr.readAsDataURL(fileInput.files[0]);
 
-function submitImg(img, backUrl, type) {
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: backUrl,
-        contentType: "application/json",
-        data: JSON.stringify({
-            "type": type,
-            "img": img.result,
-            "width": img.width,
-            "height": img.height
-            }),
-        success: function(result) {
-            console.log(result.message);
-        }
-    });
+    // draw image to correpsonding canvas with resizing
+    fr.onload = function() {
+        drawCanvas(fr.result, can, out);
+    }
 }
 
 function drawCanvas(dataUrl, canvas, output) {
     var ctx = canvas.getContext('2d');
     var img = new Image();
+    img.src = dataUrl;
+    // rescale yhe image and draw to canvas
+    // show the original size to ouput element
     img.onload = function () {
         if (checkSize(img.width, img.height, MINSIZE, MAXSIZE)) {
-            var hei = 200
-            var wid = img.width / img.height * hei
-            canvas.width = wid
+            var hei = 200;
+            var wid = img.width / img.height * hei;
+            canvas.width = wid;
             ctx.drawImage(img, 0, 0, wid, hei);
             output.innerHTML = "Size: " + img.width + "x" + img.height; 
+            console.log("TYPE image loaded".replace("TYPE", canvas.id));
         }
         else {
             alert("图片过大或过小");
         }
     }
-    img.src = dataUrl;
 }
 
 function checkSize(width, height, min, max) {
-    if (width < min || width > max
-        || height < min || height > max) {
-        return false;
-    }
-    return true;
+    return (width >= min && width <= max
+            && height >= min && height <= max)
 }
 
-function mergeImage() {
-    var canBg = document.getElementById("background");
-    var canHd = document.getElementById("hide");
-    var hdWidth = canHd.width;
-    var hdHeight = canHd.height;
+function generate() {
+    // send back and hide image to back end
+    var finBack = document.getElementById("bgPic");
+    var finHide = document.getElementById("hdPic");
+
+    var frBg = new FileReader();
+    var frHd = new FileReader();
+    var formJson = {"back": null, "hide": null};
+    frBg.readAsDataURL(finBack.files[0]);
+    frHd.readAsDataURL(finHide.files[0]);
+
+    frBg.onload = function() {
+        formJson.back = frBg.result;
+    }
     
-    var bgData = canBg.getContext("2d").getImageData(0, 0, canBg.width, canBg.height).data;
-    var hdData = canHd.getContext("2d").getImageData(0, 0, hdWidth, hdHeight).data;
-
-    var can = document.getElementById("result");
-    var ctx = can.getContext("2d");
-    can.width = canBg.width;
-    can.height = canBg.height;
-    const imageData = ctx.getImageData(0, 0, can.width, can.height);
-    const imgData = imageData.data;
-
-    for (var i = 0; i < imgData.length; i++) {
-        imgData[i] = bgData[i];
+    frHd.onload = function() {
+        formJson.hide = frHd.result;
+        submitImg(formJson, url);
     }
+}
 
-    var stepx = canBg.width / hdWidth;
-    var stepy = canBg.height / hdHeight;
-
-    for (var i = 0; i < hdWidth; i++){
-        for (var j = 0; j < hdHeight; j++){
-            var new_x = parseInt((i + 0.5) * stepx);
-            var new_y = parseInt((j + 0.5) * stepy);
-            var id = i + hdWidth * j;
-            var new_id = new_x + canBg.width * new_y;
-            imgData[4*new_id] = hdData[4*id];
-            imgData[4*new_id+1] = hdData[4*id+1];
-            imgData[4*new_id+2] = hdData[4*id+2];
+// submit img dataurl to back end, and return the response
+function submitImg(jsonForm, backUrl) {
+    var canvas = document.getElementById("result");
+    var output = document.getElementById("sizeRes");
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: backUrl,
+        contentType: "application/json",
+        data: JSON.stringify(jsonForm),
+        success: function(result) {
+            console.log(result.result);
+            $("#ImagePic").attr("src",result.result);
         }
-    }
-
-    imgData[3] = parseInt(hdWidth / 256); 
-    imgData[7] = hdWidth % 256;
-    imgData[11] = parseInt(hdHeight / 256);
-    imgData[15] = hdHeight % 256;
-
-    ctx.putImageData(imageData,0,0);
-
+    });    
 }
 
-function save() {
-
-}
-
-function clear() {
-
+function clearImg() {
+    console.log("aaa")
+    console.log(backImg)
 }

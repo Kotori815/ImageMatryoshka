@@ -12,26 +12,29 @@
 
     <div class="box">
         <div class="picBox">
-            <canvas id=background width="400" height="200"></canvas>
-            <br><input type="file" id="bgPic" accept="image/png" style="margin: 2px;" onchange="upload(this, bgPic)" />
-            <br><output id="sizeBg">Size:</output>
+            <canvas id=background width="400" height="200"></canvas><br>
+            <input type="file" id="bgPic" accept="image/png" style="margin: 2px;" onchange="upload(this)" /><br>
+            <output id="sizeBg">Size:</output>
         </div>
         
         <div class="picBox">
-            <canvas id=hide width="400" height="200"></canvas>
-            <br><input type="file" id="hdPic" value="image/png" style="margin: 2px;" onchange="upload(this, hdPic)" />
-            <br><output id="sizeHd">Size:</output>
+            <canvas id=hide width="400" height="200"></canvas><br>
+            <input type="file" id="hdPic" value="image/png" style="margin: 2px;" onchange="upload(this)" /><br>
+            <output id="sizeHd">Size:</output>
         </div>
     </div>
 
     <p>
-        <input type="button" id="generate" value="生成" onclick="mergeImage()" />
-        <input type="button" id="clear" value="清除" onclick="clear()" />
+        <input type="button" id="generate" value="生成" onclick="generate()" />
+        <input type="button" id="clear" value="清除" onclick="clearImg()" />
     </p>
 
     <p>
-        <canvas id="result" width="400" height="200"></canvas>
+        <canvas id="result" width="400" height="200"></canvas><br>
+        <output id="sizeRes">Size:</output>
         <br><input type="button" id="save" value="保存" onclick="save()" style="margin: 2px;" />
     </p>
+
+    <img id="ImagePic" alt="Base64 encoded image" width="100" height="100" />
 
 </body>
