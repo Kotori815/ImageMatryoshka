@@ -7,7 +7,22 @@ import base64, re, os, uuid
 import util
 
 app = Flask(__name__)
+app.config["DEBUG"] = True
+app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 1
+app.jinja_env.auto_reload = True
 CORS(app, supports_cresentials=True)
+
+def override_url_for():
+    return dict(url_for=dated_url_for)
+
+def dated_url_for(endpoint, **values):
+    filename = None
+    if endpoint == 'static':
+        filename = values.get('filename', None)
+    if filename:
+        file_path = os.path.join(app.root_path, endpoint, filename)
+        values['v'] = int(os.stat(file_path).st_mtime)
+    return url_for(endpoint, **values)
 
 @app.route('/')
 def main():
@@ -37,5 +52,5 @@ def encode():
     except Exception as e:
         print(e.args)
         return jsonify({'code': -1, 'message': e.args})
-    
+
 

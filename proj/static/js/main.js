@@ -4,8 +4,8 @@ var MAXSIZE = 2000;
 var url = "http://127.0.0.1:5000";
 
 function upload(fileInput, target) {
-    var can = fileInput.parentNode.firstChild.nextSibling;
-    var out = fileInput.parentNode.lastChild.previousSibling;
+    var can = fileInput.parentNode.getElementsByTagName("canvas")[0];
+    var out = fileInput.parentNode.getElementsByTagName("output")[0];
     var fr = new FileReader();
     fr.readAsDataURL(fileInput.files[0]);
 
@@ -49,16 +49,16 @@ function generate() {
     var frBg = new FileReader();
     var frHd = new FileReader();
     var formJson = {"back": null, "hide": null};
-    frBg.readAsDataURL(finBack.files[0]);
     frHd.readAsDataURL(finHide.files[0]);
-
-    frBg.onload = function() {
-        formJson.back = frBg.result;
-    }
     
     frHd.onload = function() {
+        frBg.readAsDataURL(finBack.files[0]);
         formJson.hide = frHd.result;
-        submitImg(formJson, url + "/encode");
+
+        frBg.onload = function() {
+            formJson.back = frBg.result;
+            submitImg(formJson, url + "/encode");
+        }
     }
 }
 

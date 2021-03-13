@@ -13,12 +13,14 @@ img {
     border-radius: 2pt;
 }
 
-output {
-    padding: 5px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 15pt;
-}
-
 .box {
     display: flex;
+}
+
+.picTag {
+    padding: 2px;
+    margin: 0px;
+    font-size: 14pt;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }

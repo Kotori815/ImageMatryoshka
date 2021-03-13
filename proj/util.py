@@ -20,7 +20,10 @@ def dataUrl2NumpyArray(src):
     return imgArray
 
 def mergeImage(back, hide):
-    result = np.copy(back[:,:,:3])
+    result = np.zeros([back.shape[0], back.shape[1], 3])
+    for i in range(result.shape[0]):
+        for j in range(result.shape[1]):
+            result[i,j] = np.flip(back[i,j])
 
     bg_w, bg_h = back.shape[:2]
     hd_w, hd_h = hide.shape[:2]
