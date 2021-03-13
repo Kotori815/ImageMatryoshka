@@ -1,7 +1,7 @@
 var MINSIZE = 50;
 var MAXSIZE = 2000;
 
-var url = "http://127.0.0.1:5000/upload";
+var url = "http://127.0.0.1:5000";
 
 function upload(fileInput, target) {
     var can = fileInput.parentNode.firstChild.nextSibling;
@@ -58,7 +58,7 @@ function generate() {
     
     frHd.onload = function() {
         formJson.hide = frHd.result;
-        submitImg(formJson, url);
+        submitImg(formJson, url + "/encode");
     }
 }
 

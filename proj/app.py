@@ -10,13 +10,13 @@ app = Flask(__name__)
 CORS(app, supports_cresentials=True)
 
 @app.route('/')
-def hello():
+def main():
     # return '<h1>Void Page!</h1><p>There is a void in your heart and I put it there</p>'
     return render_template('encode.html')
 
 
-@app.route('/upload', methods=['POST'])
-def upload():
+@app.route('/encode', methods=['POST'])
+def encode():
     try:
         if not request.json:
             print("aa")

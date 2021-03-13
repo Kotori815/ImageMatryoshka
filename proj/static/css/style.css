@@ -8,6 +8,11 @@ canvas {
     border-radius: 2pt;
 }
 
+img {
+    margin: 2px;
+    border-radius: 2pt;
+}
+
 output {
     padding: 5px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
