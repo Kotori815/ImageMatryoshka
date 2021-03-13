@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import *
 import base64, re, os, uuid
 
@@ -11,7 +11,9 @@ CORS(app, supports_cresentials=True)
 
 @app.route('/')
 def hello():
-    return '<h1>Void Page!</h1><p>There is a void in your heart and I put it there</p>'
+    # return '<h1>Void Page!</h1><p>There is a void in your heart and I put it there</p>'
+    return render_template('encode.html')
+
 
 @app.route('/upload', methods=['POST'])
 def upload():

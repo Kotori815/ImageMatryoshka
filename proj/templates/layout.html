@@ -1,0 +1,11 @@
+<html>
+    <title>这里是标题</title>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-latest.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js')}}"></script>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css')}}">
+</html>
+
+<body>
+    {% block body %}
+    {% endblock %}
+</body>
