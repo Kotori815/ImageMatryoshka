@@ -7,6 +7,19 @@
 </html>
 
 <body>
+    <div class="top-bar" class="topbar">
+        <ul class="top-bar-list">
+            <li><a class="top-bar-item" href="/"><b>图片套娃生成器</b></a></li>
+            <li><a class="top-bar-item" href="/encodePage">生成</a></li>
+            <li><a class="top-bar-item" href="/decodePage">解密</a></li>
+        </ul>
+    </div>
+    
+
+    <p id="intro" style="padding-left: 5pt;">
+        将小图的像素均匀分散在大图中以起到隐藏的效果。为了良好的隐藏效果，请选择适当的图片尺寸。
+    </p>
+
     {% block body %}
     {% endblock %}
 </body>

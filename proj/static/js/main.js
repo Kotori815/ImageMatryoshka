@@ -72,9 +72,22 @@ function submitImg(jsonForm, backUrl) {
         data: JSON.stringify(jsonForm),
         success: function(result) {
             console.log(result.message);
-            document.getElementById("result").src = result.result
+            document.getElementsByTagName("img")[0].src = result.result
         }
     });    
+}
+
+function degenerate() {
+    var fin = document.getElementById("resPic");
+
+    var fr = new FileReader();
+    var formJson = {"result": null};
+    fr.readAsDataURL(fin.files[0]);
+    
+    fr.onload = function() {
+        formJson.result = fr.result;
+        submitImg(formJson, url + "/decode");
+    }
 }
 
 function clearImg() {

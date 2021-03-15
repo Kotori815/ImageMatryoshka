@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="box">
+    <div class="picBox">
+        <p class="picTag">套娃图:</p>
+        <canvas id=result width="720" height="360"></canvas><br>
+        <input type="file" id="resPic" accept="image/png" style="margin: 2px;" onchange="upload(this)" /><br>
+        <output id="sizeRes" class="picTag">Size:</output>
+    </div>
+</div>
+
+<p>
+    <input type="button" id="generate" value="提交" onclick="degenerate()" />
+    <input type="button" id="clear" value="清除" onclick="clearImg()" />
+</p>
+
+<div class="originBox">
+    <p class="picTag">解密结果:</p><br>
+    <img id="origin" width="320" height="180"></img><br>
+</div>
+
+{% endblock %}
